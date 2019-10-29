@@ -1,0 +1,38 @@
+﻿@model Produto
+<form asp-action="Cadastrar" method="post">
+    <fieldset>
+        <legend>Cadastrar Produto</legend>
+        <div asp-validation-summary="ModelOnly"
+             class="text-primary"></div>
+        <div class="form-group" id="Nome">
+            <label asp-for="Nome"></label>
+            <input type="text" asp-for="Nome"
+                   class="form-control" />
+            <span asp-validation-for="Nome"
+                  class="text-primary"></span>
+        </div>
+        <div class="form-group" id="Descricao">
+            <label asp-for="Descricao"></label>
+            <input type="text" asp-for="Descricao"
+                   class="form-control" />
+            <span asp-validation-for="Descricao"
+                  class="text-primary"></span>
+        </div>
+        <div class="form-group" id="Preco">
+            <label asp-for="Preco"></label>
+            <input type="text" asp-for="Preco"
+                   class="form-control" />
+            <span asp-validation-for="Preco"
+                  class="text-primary"></span>
+        </div>
+        <div class="form-group" id="Quantidade">
+            <label asp-for="Quantidade"></label>
+            <input type="text" asp-for="Quantidade"
+                   class="form-control" />
+            <span asp-validation-for="Quantidade"
+                  class="text-primary"></span>
+        </div>
+        <input type="submit" class="btn btn-success"
+               value="Cadastrar" />
+    </fieldset>
+</form>
