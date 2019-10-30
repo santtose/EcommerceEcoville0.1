@@ -34,6 +34,7 @@ namespace EcommerceEcoville
 
             //Configurando a injeção de dependência
             services.AddScoped<ProdutoDAO>();
+            services.AddScoped<CategoriaDAO>();
 
             services.AddDbContext<Context>
                 (options => options.UseSqlServer

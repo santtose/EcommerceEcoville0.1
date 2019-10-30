@@ -2,24 +2,41 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Repository
 {
-    class CategoriaDAO : IRepository<Categoria>
+    public class CategoriaDAO : IRepository<Categoria>
     {
+        private readonly Context _context;
+        public CategoriaDAO(Context context)
+        {
+            _context = context;
+        }
         public Categoria BuscarPorId(int? id)
         {
-            throw new NotImplementedException();
+            return _context.Categorias.Find(id);
         }
 
         public bool Cadastrar(Categoria objeto)
         {
-            throw new NotImplementedException();
+            if (BuscarPorNome(objeto) == null)
+            {
+                _context.Categorias.Add(objeto);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public Categoria BuscarPorNome(Categoria obj)
+        {
+            return _context.Categorias.FirstOrDefault(x => x.Nome.Equals(obj.Nome));
         }
 
         public List<Categoria> ListarTodos()
         {
-            throw new NotImplementedException();
+            return _context.Categorias.ToList();
         }
     }
 }

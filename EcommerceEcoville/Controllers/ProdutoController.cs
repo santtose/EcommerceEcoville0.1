@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Repository;
 
 namespace EcommerceEcoville.Controllers
@@ -11,9 +12,11 @@ namespace EcommerceEcoville.Controllers
     public class ProdutoController : Controller
     {
         private readonly ProdutoDAO _produtoDAO;
-        public ProdutoController(ProdutoDAO produtoDAO)
+        private readonly CategoriaDAO _categoriaDAO;
+        public ProdutoController(ProdutoDAO produtoDAO, CategoriaDAO categoriaDAO)
         {
             _produtoDAO = produtoDAO;
+            _categoriaDAO = categoriaDAO;
         }
 
         //Métodos dentro de um controller são de chamados
@@ -26,14 +29,18 @@ namespace EcommerceEcoville.Controllers
 
         public IActionResult Cadastrar()
         {
+            ViewBag.Categorias = new SelectList(_categoriaDAO.ListarTodos(), "CategoriaId", "Nome");
             return View();
         }
 
         [HttpPost]
-        public IActionResult Cadastrar(Produto p)
+        public IActionResult Cadastrar(Produto p, int drpCategorias)
         {
+            ViewBag.Categorias = new SelectList(_categoriaDAO.ListarTodos(), "CategoriaId", "Nome");
+
             if (ModelState.IsValid)
             {
+                p.Categoria = _categoriaDAO.BuscarPorId(drpCategorias);
                 if (_produtoDAO.Cadastrar(p))
                 {
                     return RedirectToAction("Index");

@@ -1,7 +1,4 @@
 ﻿@model Produto
-@{
-    Layout = null;
-}
 
 <!DOCTYPE html>
 
@@ -34,7 +31,23 @@
             <dd>
                 @Html.DisplayFor(model => model.Preco)
             </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Quantidade)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Quantidade)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Categoria.Nome)
+            </dd>
         </dl>
+    </div>
+    <div>
+        <a asp-action="Alterar" asp-route-id="@Model.ProdutoId" class="btn btn-outline-success">Edit</a>
+        <a asp-action="Index" class="btn btn-outline-success">Voltar a Lista</a>
     </div>
 </body>
 </html>
