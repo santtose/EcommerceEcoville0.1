@@ -1,0 +1,40 @@
+﻿@model Produto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Detalhes</title>
+</head>
+<body>
+    <div>
+        <h2>Detalhes do Produto</h2>
+        <hr />
+
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Descricao)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Preco)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Preco)
+            </dd>
+        </dl>
+    </div>
+</body>
+</html>

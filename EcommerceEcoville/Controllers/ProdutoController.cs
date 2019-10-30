@@ -68,5 +68,11 @@ namespace EcommerceEcoville.Controllers
             _produtoDAO.Alterar(p);
             return RedirectToAction("Index");
         }
+
+        public IActionResult Detalhes(int? id)
+        {
+            var obj = _produtoDAO.BuscarPorId(id.Value);
+            return View(obj);
+        }
     }
 }
