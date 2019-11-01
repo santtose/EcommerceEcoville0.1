@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Microsoft.EntityFrameworkCore;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace Repository
 
         public Produto BuscarPorId(int? id)
         {
-            return _context.Produtos.Find(id);
+            return _context.Produtos.Include(obj => obj.Categoria).FirstOrDefault(obj => obj.ProdutoId == id);
         }
         public void Remover(int? id)
         {

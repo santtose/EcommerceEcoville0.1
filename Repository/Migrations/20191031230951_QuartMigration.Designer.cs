@@ -10,8 +10,8 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20191030000445_CriarBanco")]
-    partial class CriarBanco
+    [Migration("20191031230951_QuartMigration")]
+    partial class QuartMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,11 +35,38 @@ namespace Repository.Migrations
                     b.ToTable("Categorias");
                 });
 
+            modelBuilder.Entity("Domain.Endereco", b =>
+                {
+                    b.Property<int>("EnderecoId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Bairro");
+
+                    b.Property<string>("Cep");
+
+                    b.Property<DateTime>("CriadoEm");
+
+                    b.Property<string>("Localidade");
+
+                    b.Property<string>("Logradouro");
+
+                    b.Property<int>("Numero");
+
+                    b.Property<string>("Uf");
+
+                    b.HasKey("EnderecoId");
+
+                    b.ToTable("Enderecos");
+                });
+
             modelBuilder.Entity("Domain.Produto", b =>
                 {
                     b.Property<int>("ProdutoId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CategoriaId");
 
                     b.Property<DateTime>("CriadoEm");
 
@@ -58,7 +85,44 @@ namespace Repository.Migrations
 
                     b.HasKey("ProdutoId");
 
+                    b.HasIndex("CategoriaId");
+
                     b.ToTable("Produtos");
+                });
+
+            modelBuilder.Entity("Domain.Usuario", b =>
+                {
+                    b.Property<int>("UsuarioId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CriadoEm");
+
+                    b.Property<string>("Email");
+
+                    b.Property<int?>("EnderecoId");
+
+                    b.Property<string>("Senha");
+
+                    b.HasKey("UsuarioId");
+
+                    b.HasIndex("EnderecoId");
+
+                    b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("Domain.Produto", b =>
+                {
+                    b.HasOne("Domain.Categoria", "Categoria")
+                        .WithMany()
+                        .HasForeignKey("CategoriaId");
+                });
+
+            modelBuilder.Entity("Domain.Usuario", b =>
+                {
+                    b.HasOne("Domain.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoId");
                 });
 #pragma warning restore 612, 618
         }

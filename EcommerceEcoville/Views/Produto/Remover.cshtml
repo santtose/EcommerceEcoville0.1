@@ -1,0 +1,46 @@
+﻿@model Produto
+
+@{
+    ViewData["Title"] = "Remover";
+}
+
+<h2>Remover Produto</h2>
+
+<h3>Você tem certeza que deseja remover o item?</h3>
+
+<div>
+    <h4>Produto</h4>
+    <hr />
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Preco)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Preco)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantidade)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Quantidade)
+        </dd>
+    </dl>
+
+    <form asp-action="Remover">
+        <input type="hidden" asp-for="ProdutoId" />
+        <input type="submit" value="Remover" class="btn btn-outline-success" /> |
+        <a asp-action="Index">Voltar para lista</a>
+    </form>
+</div>
