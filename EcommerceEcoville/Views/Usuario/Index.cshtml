@@ -1,0 +1,43 @@
+﻿@model List<Usuario>
+@{
+    DateTime dataHora = ViewBag.DataHora;
+}
+
+<h2>Gerenciamento de Usuarios</h2>
+<a class="btn  btn-outline-success" asp-action="Cadastrar">Cadastrar Novo</a>
+
+<table style="margin-bottom:15px;margin-top:15px"
+       class="table table-hover table-striped">
+    <thead>
+        <tr class="table-active">
+            <th>Email</th>
+            <th>Rua</th>
+            <th>Bairro</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>Numero</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Usuario user in Model)
+        {
+        <tr>
+            <td>@user.Email</td>
+            <td>@user.Endereco.Logradouro</td>
+            <td>@user.Endereco.Bairro</td>
+            <td>@user.Endereco.Localidade</td>
+            <td>@user.Endereco.Uf</td>
+            <td>@user.Endereco.Numero</td>
+            <td>
+                <a class="btn  btn-outline-success" asp-action="Remover" asp-route-id="@user.UsuarioId">Remover</a>
+                <a class="btn  btn-outline-success" asp-action="Detalhes" asp-route-id="@user.UsuarioId">Detalhes</a>
+                <a class="btn  btn-outline-success" asp-action="Alterar" asp-route-id="@user.UsuarioId">Alterar</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<p>
+    <b>Dados atualizados em: </b> @dataHora
+</p>

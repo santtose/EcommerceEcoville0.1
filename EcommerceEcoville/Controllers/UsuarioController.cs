@@ -6,14 +6,23 @@ using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Repository;
 
 namespace EcommerceEcoville.Controllers
 {
     public class UsuarioController : Controller
     {
+        private readonly UsuarioDAO _usuarioDAO;
+
+        public UsuarioController(UsuarioDAO usuarioDAO)
+        {
+            _usuarioDAO = usuarioDAO;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            ViewBag.DataHora = DateTime.Now;
+            return View(_usuarioDAO.ListarTodos());
         }
 
         public IActionResult Cadastrar()
@@ -36,6 +45,21 @@ namespace EcommerceEcoville.Controllers
             TempData["Endereco"] = client.DownloadString(url);
 
             return RedirectToAction("Cadastrar");
+        }
+
+        [HttpPost]
+        public IActionResult Cadastrar(Usuario u)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_usuarioDAO.Cadastrar(u))
+                {
+                    return RedirectToAction("Index");
+                }
+                ModelState.AddModelError("", "Email já está sendo ultilizado");
+                return View(u);
+            }
+            return View(u);
         }
     }
 }
