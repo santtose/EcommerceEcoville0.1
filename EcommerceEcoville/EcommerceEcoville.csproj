@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Usuario\Alterar.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Usuario\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

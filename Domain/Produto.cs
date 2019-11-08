@@ -36,5 +36,6 @@ namespace Domain
 
         public Categoria Categoria { get; set; }
         public DateTime CriadoEm { get; set; }
+        public string Imagem { get; set; }
     }
 }

@@ -61,5 +61,28 @@ namespace EcommerceEcoville.Controllers
             }
             return View(u);
         }
+
+        public IActionResult Remover(int? id)
+        {
+            if (id != null)
+                _usuarioDAO.Remover(id);
+            else
+            {
+                //erro
+            }
+                return RedirectToAction("Index");
+        }
+
+        public IActionResult Alterar(int? id)
+        {
+            return View(_usuarioDAO.BuscarPorId(id));
+        }
+
+        [HttpPost]
+        public IActionResult Alterar(Usuario u)
+        {
+            _usuarioDAO.Alterar(u);
+            return RedirectToAction("Index");
+        }
     }
 }

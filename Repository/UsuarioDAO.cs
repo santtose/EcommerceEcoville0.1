@@ -41,5 +41,17 @@ namespace Repository
         {
             return _context.Usuarios.FirstOrDefault(x => x.Email.Equals(u.Email));
         }
+
+        public void Remover(int? id)
+        {
+            _context.Usuarios.Remove(BuscarPorId(id));
+            _context.SaveChanges();
+        }
+
+        public void Alterar(Usuario u)
+        {
+            _context.Usuarios.Update(u);
+            _context.SaveChanges();
+        }
     }
 }

@@ -1,34 +1,38 @@
 ﻿@model Produto
-<form asp-action="Alterar" method="post">
+<form asp-action="Alterar" method="post" enctype="multipart/form-data">
     <fieldset>
         <legend>Alterar Produto</legend>
-        <input type="hidden" asp-for="ProdutoId" />
+
         <div class="form-group">
-            <label>Id:</label>
-            <input type="text" asp-for="ProdutoId"
-                   readonly="" class="form-control" />
+            <input type="hidden" asp-for="ProdutoId" readonly="" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="hidden" asp-for="Imagem" readonly="" class="form-control" />
         </div>
         <div class="form-group" id="Nome">
             <label>Nome:</label>
-            <input type="text" asp-for="Nome"
-                   class="form-control" />
+            <input type="text" asp-for="Nome" class="form-control" />
         </div>
         <div class="form-group" id="Descricao">
             <label>Descrição:</label>
-            <input type="text" asp-for="Descricao"
-                   class="form-control" />
+            <input type="text" asp-for="Descricao" class="form-control" />
         </div>
         <div class="form-group" id="Preco">
             <label>Preço:</label>
-            <input type="text" asp-for="Preco"
-                   class="form-control" />
+            <input type="text" asp-for="Preco" class="form-control" />
         </div>
         <div class="form-group" id="Quantidade">
             <label>Quantidade:</label>
-            <input type="text" asp-for="Quantidade"
-                   class="form-control" />
+            <input type="text" asp-for="Quantidade" class="form-control" />
         </div>
-        <input type="submit" class="btn btn-success"
+        <div class="form-group" id="Imagem">
+            <div class="">
+                <img src="~/ecommerceimagens/@Model.Imagem" alt="@Model.Descricao" class="img-thumbnail" /><br />
+                <label asp-for="Imagem"></label><br />
+                <input type="file" name="fupImagem" />
+            </div>
+        </div>
+        <input type="submit" class="btn btn-outline-success"
                value="Salvar" />
     </fieldset>
 </form>
