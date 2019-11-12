@@ -4,13 +4,19 @@
     ViewData["Title"] = "Remover";
 }
 
-<h2>Remover Produto</h2>
 
-<h3>Você tem certeza que deseja remover o item?</h3>
+<h4>Tem certeza que deseja remover esse produto?</h4><br />
 
 <div>
-    <h4>Produto</h4>
+    <h5>Produto</h5>
     <hr />
+
+    <div class="form-group">
+        <div class="">
+            <img src="~/ecommerceimagens/@Model.Imagem" alt="@Model.Descricao " class="img-thumbnail" width="200" height="200" />
+        </div>
+    </div>
+
     <dl>
         <dt>
             @Html.DisplayNameFor(model => model.Nome)
@@ -40,7 +46,7 @@
 
     <form asp-action="Remover">
         <input type="hidden" asp-for="ProdutoId" />
-        <input type="submit" value="Remover" class="btn btn-outline-success" /> |
-        <a asp-action="Index">Voltar para lista</a>
+        <input type="submit" value="Remover" class="btn btn-outline-success" /> 
+        <a asp-action="Index" class="btn btn-outline-success">Voltar para lista</a>
     </form>
 </div>

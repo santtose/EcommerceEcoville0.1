@@ -74,14 +74,22 @@ namespace EcommerceEcoville.Controllers
 
         public IActionResult Remover(int? id)
         {
-            if (id != null)
+            if (id == null)
             {
-                _produtoDAO.Remover(id);
+                return NotFound();
             }
-            else
+            var obj = _produtoDAO.BuscarPorId(id.Value);
+            if(id == null)
             {
-                //Redirecionar para uma página de erro
+                return NotFound();
             }
+            return View(obj);
+        }
+
+        [HttpPost]
+        public IActionResult Remover(int id)
+        {
+            _produtoDAO.Remover(id);
             return RedirectToAction("Index");
         }
         public IActionResult Alterar(int? id)
