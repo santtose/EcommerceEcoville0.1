@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EcommerceEcoville.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -36,6 +37,9 @@ namespace EcommerceEcoville
             services.AddScoped<ProdutoDAO>();
             services.AddScoped<CategoriaDAO>();
             services.AddScoped<UsuarioDAO>();
+            services.AddScoped<ItemVendaDAO>();
+            services.AddScoped<UtilsSession>();
+            services.AddHttpContextAccessor();
 
             services.AddDbContext<Context>
                 (options => options.UseSqlServer

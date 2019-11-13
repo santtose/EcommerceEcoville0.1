@@ -10,8 +10,8 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20191107222341_Migration03")]
-    partial class Migration03
+    [Migration("20191113000941_NovaMigration")]
+    partial class NovaMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,6 +58,29 @@ namespace Repository.Migrations
                     b.HasKey("EnderecoId");
 
                     b.ToTable("Enderecos");
+                });
+
+            modelBuilder.Entity("Domain.ItemVenda", b =>
+                {
+                    b.Property<int>("ItemVendaId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CarrinhoId");
+
+                    b.Property<DateTime>("CriadoEm");
+
+                    b.Property<double>("Preco");
+
+                    b.Property<int?>("ProdutoId");
+
+                    b.Property<int>("Quantidade");
+
+                    b.HasKey("ItemVendaId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("ItensVendas");
                 });
 
             modelBuilder.Entity("Domain.Produto", b =>
@@ -111,6 +134,13 @@ namespace Repository.Migrations
                     b.HasIndex("EnderecoId");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("Domain.ItemVenda", b =>
+                {
+                    b.HasOne("Domain.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId");
                 });
 
             modelBuilder.Entity("Domain.Produto", b =>

@@ -52,7 +52,8 @@
         </dl>
     </div>
     <div>
-        <a asp-action="Alterar" asp-route-id="@Model.ProdutoId" class="btn btn-outline-success">Edit</a>
+        <a asp-action="AdicionarAoCarrinho" asp-controller="Produto" asp-route-id="@Model.ProdutoId" class="btn btn-outline-success">Adicionar</a>
+        <a asp-action="Alterar" asp-route-id="@Model.ProdutoId" class="btn btn-outline-success">Editar</a>
         <a asp-action="Index" class="btn btn-outline-success">Voltar a Lista</a>
     </div>
 </body>

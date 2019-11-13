@@ -58,6 +58,29 @@ namespace Repository.Migrations
                     b.ToTable("Enderecos");
                 });
 
+            modelBuilder.Entity("Domain.ItemVenda", b =>
+                {
+                    b.Property<int>("ItemVendaId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CarrinhoId");
+
+                    b.Property<DateTime>("CriadoEm");
+
+                    b.Property<double>("Preco");
+
+                    b.Property<int?>("ProdutoId");
+
+                    b.Property<int>("Quantidade");
+
+                    b.HasKey("ItemVendaId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("ItensVendas");
+                });
+
             modelBuilder.Entity("Domain.Produto", b =>
                 {
                     b.Property<int>("ProdutoId")
@@ -109,6 +132,13 @@ namespace Repository.Migrations
                     b.HasIndex("EnderecoId");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("Domain.ItemVenda", b =>
+                {
+                    b.HasOne("Domain.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId");
                 });
 
             modelBuilder.Entity("Domain.Produto", b =>

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain;
+using EcommerceEcoville.Utils;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,16 @@ namespace EcommerceEcoville.Controllers
     {
         private readonly ProdutoDAO _produtoDAO;
         private readonly CategoriaDAO _categoriaDAO;
+        private readonly ItemVendaDAO _itemVendaDAO;
+        private readonly UtilsSession _utilSession;
         private readonly IHostingEnvironment _hosting;
 
-        public ProdutoController(ProdutoDAO produtoDAO, CategoriaDAO categoriaDAO, IHostingEnvironment hosting)
+        public ProdutoController(ProdutoDAO produtoDAO, CategoriaDAO categoriaDAO, ItemVendaDAO itemVendaDAO, UtilsSession utilsSession, IHostingEnvironment hosting)
         {
             _produtoDAO = produtoDAO;
             _categoriaDAO = categoriaDAO;
+            _itemVendaDAO = itemVendaDAO;
+            _utilSession = utilsSession;
             _hosting = hosting;
         }
 
@@ -108,6 +113,26 @@ namespace EcommerceEcoville.Controllers
         {
             var obj = _produtoDAO.BuscarPorId(id.Value);
             return View(obj);
+        }
+
+        public IActionResult AdicionarAoCarrinho(int id)
+        {
+            Produto p = _produtoDAO.BuscarPorId(id);
+
+            ItemVenda i = new ItemVenda
+            {
+                Produto = p,
+                Quantidade = 1,
+                Preco = p.Preco.Value,
+                CarrinhoId = _utilSession.RetornarCarrinhoId()
+            };
+            _itemVendaDAO.Cadastrar(i);
+            return RedirectToAction("CarrinhoCompras");
+        }
+
+        public IActionResult CarrinhoCompras()
+        {
+            return View(_itemVendaDAO.ListarItensPorCarrinhoId(_utilSession.RetornarCarrinhoId()));
         }
     }
 }
